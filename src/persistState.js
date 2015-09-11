@@ -3,6 +3,16 @@ import bufferActions from './bufferActions.js';
 import actionTypes from './actionTypes.js';
 import adapter from './adapters/localStorage';
 
+let localStorage;
+
+if (typeof window === 'undefined' ) {
+  require('fs');
+  const LocalStorage = require('node-localstorage').LocalStorage;
+  localStorage = new LocalStorage('./scratch');
+} else {
+  localStorage = window.localStorage;
+}
+
 const defaultStorage = adapter(localStorage);
 const defaultKey = 'redux-localstorage';
 
